@@ -130,6 +130,7 @@ const quizDB = [
 
 
 // Your web app's Firebase configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyCzZ7cOiBFSKZ21yBwNg3mps1764mSJOpo",
     authDomain: "quiz2-f87e2.firebaseapp.com",
