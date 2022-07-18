@@ -5,14 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <title>Document</title>
+    <title>Home</title>
 </head>
 <body>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="./script/script.js"></script>
-
-    <script src="../quiz2.0/script/script.js"></script>
+    <section>
+        <div>
+            <div>
+                <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="">
+            </div>
+            <div>
+                <input type="button" value="Registro" id="registro">
+                <div>
+                    <input type="button" value="Iniciar Sesión" id="login">
+                    <form name="form" id="form">
+                        <div>
+                            <label for="name">Nombre</label><br>
+                            <input type="text" id="name" name="name" placeholder="Nombre">
+                        </div>
+                        <div>
+                            <label for="email">Correo electrónico</label><br>
+                            <input type="email" id="email" name="email" placeholder="e-mail">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
