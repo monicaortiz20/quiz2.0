@@ -5,27 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <title>Home</title>
+    <title>Init</title>
 </head>
 <body>
     <section>
-        <div>
+        <div class="container">
             <div>
-                <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="">
+                <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="logo" class="logo">
             </div>
-            <div>
-                <input type="button" value="Iniciar Sesión" id="login">
+            <div class="container-input">
+                <a id="login" href="" class="button">Iniciar sesión</a>
                 <div>
-                    <input type="button" value="Registro" id="registro">
-                    <form name="form" id="form">
+                    <a id="registro" class="button" href="">¡Regístrate!</a>
+                    <form name="form" id="form" class="form-init">
                         <div>
-                            <label for="name">Nombre</label><br>
-                            <input type="text" id="name" name="name" placeholder="Nombre">
+                            <label class="label-init" for="name">Nombre</label><br>
+                            <input class="input-init" type="text" id="name" name="name" placeholder="Carlos Sobera">
                         </div>
                         <div>
-                            <label for="email">Correo electrónico</label><br>
-                            <input type="email" id="email" name="email" placeholder="e-mail">
+                            <label class="label-init" for="email">Correo electrónico</label><br>
+                            <input class="input-init" type="email" id="email" name="email" placeholder="charlesobera@hotmail.com">
                         </div>
+                        <button class="button-registered" id="registered">Registrarme</button>
                     </form>
                 </div>
             </div>
