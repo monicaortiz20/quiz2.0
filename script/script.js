@@ -112,19 +112,40 @@ async function quizGame() {
 
         let responseQuiz = await fetch ('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
         let pregsQuiz = await responseQuiz.json()
-        console.log(pregsQuiz)
+        // console.log(pregsQuiz)
         
+        let arrayresp = []; //para meter las 4 respuestas
 
         for (let i = 0; i < pregsQuiz.results.length; i++) {
             let question = pregsQuiz.results[i].question
-            let wrongresp = pregsQuiz.results[i].incorrect_answers.value  // nos trae un array con 3 respuestas erróneas
+            let wrongresp = pregsQuiz.results[i].incorrect_answers  // nos trae un array con 3 respuestas erróneas
             let correctresp = pregsQuiz.results[i].correct_answer
 
             // console.log(question)
             // console.log(wrongresp) 
-            //console.log(correctresp) 
+            // console.log(correctresp) 
 
+            //iterar por el array de las respuestas erróneas-
+            for (let j = 0; j < wrongresp.length; j++) {
+                let erroresp = wrongresp[j];
+                // console.log(erroresp) - trae una a una las respuestas erróneas
+
+                document.getElementById('b_text').innerText = `${erroresp[j]}` 
+                document.getElementById('c_text').innerText = `${erroresp[j]}`  // escribir la respuesta errónea
+                document.getElementById('d_text').innerText = `${erroresp[j]}` 
+
+                //revisar cómo podemos cambiar de posición la resp correcta, sino siempre es la misma(la A)
+            }
+            
             // ***** pintar en el dom las pregs y las opciones de respuesta 
+            
+            document.getElementById('question').innerText = `${question}`  //escribir pregunta
+            document.getElementById('a_text').innerText = `${correctresp}`  // escribir resp correcta
+            
+            arrayresp.push(erroresp, correctresp)
+            // console.log(arrayresp)
+            let list = [0,1, 2, 3]
+            list = list.sort(() => Math.random() - 0.5) //para que la posición de la respuesta correcta vaya cambiando
         }
 
 
