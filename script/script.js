@@ -1,133 +1,113 @@
-const quizDB = [
+const quizData = [
     {
-        "response_code": 0,
-        "results": [
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "What mineral has the lowest number on the Mohs scale?",
-                "correct_answer": "Talc",
-                "incorrect_answers": [
-                    "Quartz",
-                    "Diamond",
-                    "Gypsum"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Which element has the atomic number of 7?",
-                "correct_answer": "Nitrogen",
-                "incorrect_answers": [
-                    "Oxygen",
-                    "Hydrogen",
-                    "Neon"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Au on the Periodic Table refers to which element?",
-                "correct_answer": "Gold",
-                "incorrect_answers": [
-                    "Silver",
-                    "Oxygen",
-                    "Nickel"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Which one of these scientists conducted the Gold Foil Experiment which concluded that atoms are mostly made of empty space?",
-                "correct_answer": "Ernest Rutherford",
-                "incorrect_answers": [
-                    "Joseph John Thomson",
-                    "Archimedes",
-                    "Niels Henrik David Bohr"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Myopia is the scientific term for which condition?",
-                "correct_answer": "Shortsightedness",
-                "incorrect_answers": [
-                    "Farsightedness",
-                    "Double Vision",
-                    "Clouded Vision"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "A positron is an antiparticle of a what?",
-                "correct_answer": "Electron",
-                "incorrect_answers": [
-                    "Neutron",
-                    "Proton",
-                    "Photon"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Which chemical element was originally known as Alabamine?",
-                "correct_answer": "Astatine",
-                "incorrect_answers": [
-                    "Selenium",
-                    "Antimony",
-                    "Molybdenum"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "What is the scientific term for &#039;taste&#039;?",
-                "correct_answer": "Gustatory Perception",
-                "incorrect_answers": [
-                    "Olfaction",
-                    "Somatosensation",
-                    "Auditory Perception"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "The medial meniscus forms which part of what joint in the human body?",
-                "correct_answer": "Knee",
-                "incorrect_answers": [
-                    "Elbow",
-                    "Ankle",
-                    "Shoulder"
-                ]
-            },
-            {
-                "category": "Science & Nature",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Where did the Great Storm of 1987 make landfall at, first?",
-                "correct_answer": "Cornwall",
-                "incorrect_answers": [
-                    "Surrey",
-                    "Wales",
-                    "The Midlands"
-                ]
-            }
-        ]
-    }
-]
+        question: "¿Quién muere en el primer episodio de la primera temporada?",
+        a: "Joffry Baratheon",
+        b: "Eddard Stark",
+        c: "Tyrion Lannister",
+        d: "Nadie muere",
+        correct: "b",
+    },
+    {
+        question: "¿Quién es la madre de Jon Stark?",
+        a: "Sansa Stark",
+        b: "Catelyn Stark",
+        c: "Cersei Lannister",
+        d: "Ni Jon lo sabe",
+        correct: "d",
+    },
+    {
+        question: "¿Cuál de las siguientes NO es una familia de Juego de tronos?",
+        a: "Tyrell",
+        b: "Bolton",
+        c: "Borbon",
+        d: "Stark",
+        correct: "c",
+    },
+    {
+        question: "¿Cuándo recibió Daenerys sus huevos de dragón?",
+        a: "En Astapor, como regalo de bienvenida",
+        b: "Con Khal Drogo al saber que iba a ser padre",
+        c: "Fue un regalo de boda de Magister Ilyrio",
+        d: "Se los encontraron por el camino",
+        correct: "d",
+    },
+  
+  
+  ];
 
 
 
+  const quiz= document.getElementById('quiz')
+  const answerEls = document.querySelectorAll('.answer')
+  const questionEl = document.getElementById('question')
+  const a_text = document.getElementById('a_text')
+  const b_text = document.getElementById('b_text')
+  const c_text = document.getElementById('c_text')
+  const d_text = document.getElementById('d_text')
+  const submitBtn = document.getElementById('submit')
+  
+  
+  let currentQuiz = 0
+  let score = 0
+  
+  loadQuiz()
+  
+  function loadQuiz() {
+  
+      //deselectAnswers()
+  
+    const currentQuizData = quizData[currentQuiz]
+  
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+  }
+  /*
+  function deselectAnswers() {
+      answerEls.forEach(answerEl => answerEl.focus = false)
+  }
+  */
+  
+  function getSelected() {
+    let answer
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+    return answer
+  }
+  
+  
+  
+  submitBtn.addEventListener('click', () => {
+      const answer = getSelected()
+      if(answer) {
+         if(answer === quizData[currentQuiz].correct) {
+             score++
+         }
+  
+         currentQuiz++
+  
+         if(currentQuiz < quizData.length) {
+             loadQuiz()
+         } else {
+             quiz.innerHTML = `
+             <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+  
+             <button onclick="location.reload()">Reload</button>
+             `
+         }
+      }
+  })
+
+
+
+
+
+/*
 
 // Your web app's Firebase configuration
 
@@ -169,3 +149,5 @@ db.collection("users").get().then((querySnapshot) => {
         console.log(doc.data())
     });
 });
+
+*/
