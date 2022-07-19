@@ -1,111 +1,139 @@
-const quizData = [
-    {
-        question: "¿Quién muere en el primer episodio de la primera temporada?",
-        a: "Joffry Baratheon",
-        b: "Eddard Stark",
-        c: "Tyrion Lannister",
-        d: "Nadie muere",
-        correct: "b",
-    },
-    {
-        question: "¿Quién es la madre de Jon Stark?",
-        a: "Sansa Stark",
-        b: "Catelyn Stark",
-        c: "Cersei Lannister",
-        d: "Ni Jon lo sabe",
-        correct: "d",
-    },
-    {
-        question: "¿Cuál de las siguientes NO es una familia de Juego de tronos?",
-        a: "Tyrell",
-        b: "Bolton",
-        c: "Borbon",
-        d: "Stark",
-        correct: "c",
-    },
-    {
-        question: "¿Cuándo recibió Daenerys sus huevos de dragón?",
-        a: "En Astapor, como regalo de bienvenida",
-        b: "Con Khal Drogo al saber que iba a ser padre",
-        c: "Fue un regalo de boda de Magister Ilyrio",
-        d: "Se los encontraron por el camino",
-        correct: "d",
-    },
+// const quizData = [
+//     {
+//         question: "¿Quién muere en el primer episodio de la primera temporada?",
+//         a: "Joffry Baratheon",
+//         b: "Eddard Stark",
+//         c: "Tyrion Lannister",
+//         d: "Nadie muere",
+//         correct: "b",
+//     },
+//     {
+//         question: "¿Quién es la madre de Jon Stark?",
+//         a: "Sansa Stark",
+//         b: "Catelyn Stark",
+//         c: "Cersei Lannister",
+//         d: "Ni Jon lo sabe",
+//         correct: "d",
+//     },
+//     {
+//         question: "¿Cuál de las siguientes NO es una familia de Juego de tronos?",
+//         a: "Tyrell",
+//         b: "Bolton",
+//         c: "Borbon",
+//         d: "Stark",
+//         correct: "c",
+//     },
+//     {
+//         question: "¿Cuándo recibió Daenerys sus huevos de dragón?",
+//         a: "En Astapor, como regalo de bienvenida",
+//         b: "Con Khal Drogo al saber que iba a ser padre",
+//         c: "Fue un regalo de boda de Magister Ilyrio",
+//         d: "Se los encontraron por el camino",
+//         correct: "d",
+//     },
   
   
-  ];
+//   ];
 
 
 
-  const quiz= document.getElementById('quiz')
-  const answerEls = document.querySelectorAll('.answer')
-  const questionEl = document.getElementById('question')
-  const a_text = document.getElementById('a_text')
-  const b_text = document.getElementById('b_text')
-  const c_text = document.getElementById('c_text')
-  const d_text = document.getElementById('d_text')
-  const submitBtn = document.getElementById('submit')
+//   const quiz= document.getElementById('quiz')
+//   const answerEls = document.querySelectorAll('.answer')
+//   const questionEl = document.getElementById('question')
+//   const a_text = document.getElementById('a_text')
+//   const b_text = document.getElementById('b_text')
+//   const c_text = document.getElementById('c_text')
+//   const d_text = document.getElementById('d_text')
+//   const submitBtn = document.getElementById('submit')
   
   
-  let currentQuiz = 0
-  let score = 0
+//   let currentQuiz = 0
+//   let score = 0
   
-  loadQuiz()
+//   loadQuiz()
   
-  function loadQuiz() {
+//   function loadQuiz() {
   
-      //deselectAnswers()
+//       //deselectAnswers()
   
-    const currentQuizData = quizData[currentQuiz]
+//     const currentQuizData = quizData[currentQuiz]
   
-    questionEl.innerText = currentQuizData.question
-    a_text.innerText = currentQuizData.a
-    b_text.innerText = currentQuizData.b
-    c_text.innerText = currentQuizData.c
-    d_text.innerText = currentQuizData.d
-  }
-  /*
-  function deselectAnswers() {
-      answerEls.forEach(answerEl => answerEl.focus = false)
-  }
-  */
+//     questionEl.innerText = currentQuizData.question
+//     a_text.innerText = currentQuizData.a
+//     b_text.innerText = currentQuizData.b
+//     c_text.innerText = currentQuizData.c
+//     d_text.innerText = currentQuizData.d
+//   }
+//   /*
+//   function deselectAnswers() {
+//       answerEls.forEach(answerEl => answerEl.focus = false)
+//   }
+//   */
   
-  function getSelected() {
-    let answer
-    answerEls.forEach(answerEl => {
-        if(answerEl.checked) {
-            answer = answerEl.id
+//   function getSelected() {
+//     let answer
+//     answerEls.forEach(answerEl => {
+//         if(answerEl.checked) {
+//             answer = answerEl.id
+//         }
+//     })
+//     return answer
+//   }
+  
+  
+  
+//   submitBtn.addEventListener('click', () => {
+//       const answer = getSelected()
+//       if(answer) {
+//          if(answer === quizData[currentQuiz].correct) {
+//              score++
+//          }
+  
+//          currentQuiz++
+  
+//          if(currentQuiz < quizData.length) {
+//              loadQuiz()
+//          } else {
+//              quiz.innerHTML = `
+//              <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+  
+//              <button onclick="location.reload()">Reload</button>
+//              `
+//          }
+//       }
+//   })
+
+
+
+
+//función asíncrona para traer pregs y resp de la API - PTE TERMINAR!!!! dentro de esta función tiene que ir toda la lógica del quiz
+async function quizGame() {
+    try {
+
+        let responseQuiz = await fetch ('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
+        let pregsQuiz = await responseQuiz.json()
+        console.log(pregsQuiz)
+        
+
+        for (let i = 0; i < pregsQuiz.results.length; i++) {
+            let question = pregsQuiz.results[i].question
+            let wrongresp = pregsQuiz.results[i].incorrect_answers.value  // nos trae un array con 3 respuestas erróneas
+            let correctresp = pregsQuiz.results[i].correct_answer
+
+            // console.log(question)
+            // console.log(wrongresp) 
+            //console.log(correctresp) 
+
+            // ***** pintar en el dom las pregs y las opciones de respuesta 
         }
-    })
-    return answer
-  }
-  
-  
-  
-  submitBtn.addEventListener('click', () => {
-      const answer = getSelected()
-      if(answer) {
-         if(answer === quizData[currentQuiz].correct) {
-             score++
-         }
-  
-         currentQuiz++
-  
-         if(currentQuiz < quizData.length) {
-             loadQuiz()
-         } else {
-             quiz.innerHTML = `
-             <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-  
-             <button onclick="location.reload()">Reload</button>
-             `
-         }
-      }
-  })
 
 
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-
+quizGame();
 
 /*
 
