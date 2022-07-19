@@ -11,36 +11,29 @@
 
 <body>
 
-    <main id="quiz" class="quizBox">
+    <div class="quiz-box" id="quiz">
 
-        <form class="quizContent">
-
-            <h2 id="question">Pregunta</h2>
-
-            <ul>
-                <li>
-                    <a href="#" id="answerA">Respuesta A</a>
-                </li>
-
-                <li>
-                    <a href="#" id="answerB">Respuesta B</a>
-                </li>
-
-                <li>
-                    <a href="#" id="answerC">Respuesta C</a>
-                </li>
-
-                <li>
-                    <a href="#" id="answerD">Respuesta D</a>
-                </li>
-            </ul>
-        </form>
-
-        <button id="submit">Enviar</button>
-
-        <audio src="" autoplay></audio>
-
-    </main>
+        <div class="quiz-content">
+  
+          <h2 id="question">Pregunta</h2><br/>
+  
+          <a href="#" for="a" id="a_text">Respuesta A</a>
+          <input type="radio" name="answer" id="a" class="answer"><br/>
+  
+          <label for="b" id="b_text">Respuesta B</label>
+          <input type="radio" name="answer" id="b" class="answer"><br/>
+  
+          <label for="c" id="c_text">Respuesta C</label>
+          <input type="radio" name="answer" id="c" class="answer"><br/>
+  
+          <label for="d" id="d_text">Respuesta D</label>
+          <input type="radio" name="answer" id="d" class="answer"><br/>
+  
+        </div>
+  
+        <button id="submit">Siguiente pregunta</button>
+  
+      </div>
 
     
 
