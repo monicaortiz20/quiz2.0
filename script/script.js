@@ -105,48 +105,27 @@
 
 
 
-
+let currentQuestion = 0;       //++ 1 addevent listener para "siguiente" y va pasando las preguntas
 //función asíncrona para traer pregs y resp de la API - PTE TERMINAR!!!! dentro de esta función tiene que ir toda la lógica del quiz
 async function quizGame() {
     try {
 
         let responseQuiz = await fetch ('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
         let pregsQuiz = await responseQuiz.json()
-        // console.log(pregsQuiz)
+        console.log(pregsQuiz.results)
         
-        let arrayresp = []; //para meter las 4 respuestas
+        let quest= pregsQuiz.results[currentQuestion].question;
+        let arrayresp = [...pregsQuiz.results[currentQuestion].incorrect_answers,pregsQuiz.results[currentQuestion].correct_answer]; //para meter las 4 respuestas
+        console.log(arrayresp);
 
-        for (let i = 0; i < pregsQuiz.results.length; i++) {
-            let question = pregsQuiz.results[i].question
-            let wrongresp = pregsQuiz.results[i].incorrect_answers  // nos trae un array con 3 respuestas erróneas
-            let correctresp = pregsQuiz.results[i].correct_answer
+        document.getElementById('a_text').innerHTML = `${arrayresp[0]}` 
+        document.getElementById('b_text').innerHTML = `${arrayresp[1]}`  
+        document.getElementById('c_text').innerHTML = `${arrayresp[2]}` 
+        document.getElementById('d_text').innerHTML = `${arrayresp[3]}` 
 
-            // console.log(question)
-            // console.log(wrongresp) 
-            // console.log(correctresp) 
+        let list = [0,1, 2, 3]
+        list = list.sort(() => Math.random() - 0.5) //para que la posición de la respuesta correcta vaya cambiando
 
-            //iterar por el array de las respuestas erróneas-
-            for (let j = 0; j < wrongresp.length; j++) {
-                let erroresp = wrongresp[j];
-                // console.log(erroresp) - trae una a una las respuestas erróneas
-
-                document.getElementById('b_text').innerText = `${erroresp[j]}` 
-                document.getElementById('c_text').innerText = `${erroresp[j]}`  // escribir la respuesta errónea
-                document.getElementById('d_text').innerText = `${erroresp[j]}` 
-
-                //revisar cómo podemos cambiar de posición la resp correcta, sino siempre es la misma(la A)
-            }
-            
-            // ***** pintar en el dom las pregs y las opciones de respuesta 
-            
-            document.getElementById('question').innerText = `${question}`  //escribir pregunta
-            document.getElementById('a_text').innerText = `${correctresp}`  // escribir resp correcta
-            
-            arrayresp.push(erroresp, correctresp)
-            // console.log(arrayresp)
-            let list = [0,1, 2, 3]
-            list = list.sort(() => Math.random() - 0.5) //para que la posición de la respuesta correcta vaya cambiando
-        }
 
 
     } catch (error) {
