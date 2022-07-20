@@ -1,6 +1,6 @@
 
 
-let score = 0;
+let score = []
 let currentQuestion = 0;
 const submitBtn = document.getElementById('submit')
 
@@ -14,75 +14,87 @@ async function quizGame() {
 
         let responseQuiz = await fetch('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
         let pregsQuiz = await responseQuiz.json()
-        console.log(pregsQuiz.results)
+        // console.log(pregsQuiz.results)
 
-        let quest = pregsQuiz.results[currentQuestion].question;
-        console.log(quest);
-
-
-        function paintQUest(num) {
-            let arrayresp = [...pregsQuiz.results[num].incorrect_answers, pregsQuiz.results[num].correct_answer]; //para meter las 4 respuestas
-            console.log(arrayresp);
-
-            document.getElementById('question').innerHTML = `${quest}`
-            document.getElementById('a_text').innerHTML = `${arrayresp[0]}`
-            document.getElementById('b_text').innerHTML = `${arrayresp[1]}`
-            document.getElementById('c_text').innerHTML = `${arrayresp[2]}`
-            document.getElementById('d_text').innerHTML = `${arrayresp[3]}`
-        
-        }
-        paintQUest(currentQuestion)
-        
-        let list = [0, 1, 2, 3]
-        list = list.sort(() => Math.random() - 0.5) //para que la posición de la respuesta correcta vaya cambiando
-
-
-        function getSelected() {
-            let answer
-            arrayresp.forEach(answerSel => {
-                if (answerSel.checked) {
-                    answer = answerSel.id
-                }
-            })
-            return answer
-        }
-
+        paintQUest(
+            pregsQuiz.results[currentQuestion].incorrect_answers,
+            pregsQuiz.results[currentQuestion].correct_answer, 
+            pregsQuiz.results[currentQuestion].question
+            )
 
         submitBtn.addEventListener('click', () => {
-            // const answer = getSelected()
-            // if (answer) {
-                // if (answer === pregsQuiz.results[currentQuestion].correct_answer) {
-                //     score++
-                // }
+            checkGoodAnswer(pregsQuiz.results[currentQuestion].correct_answer, score)
+            
+            currentQuestion++
 
-                currentQuestion++
+            if (currentQuestion == pregsQuiz.results.length) {
+                let total = 0;
+                score.forEach(hit => {
+                    total += hit
+                })
+                quiz.innerHTML = `
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h2>You answered ${total}/${pregsQuiz.results.length} questions correctly</h2>
+        
+                    <button onclick="location.reload()">Reload</button>
+                    `
+            }else{
+                deleteRadio()
+                
+                paintQUest(
+                    pregsQuiz.results[currentQuestion].incorrect_answers,
+                    pregsQuiz.results[currentQuestion].correct_answer, 
+                    pregsQuiz.results[currentQuestion].question
+                    )
+    
+            }
 
-                paintQUest(currentQuestion)
-
-                if (currentQuestion < pregsQuiz.results.length) {
-                    quizGame()
-                } else {
-                    quiz.innerHTML = `
-              <h2>You answered ${score}/${pregsQuiz.results.length} questions correctly</h2>
-  
-              <button onclick="location.reload()">Reload</button>
-              `
-                }
-            // }
 
         })
-
-
-
-
-
-
-
 
     } catch (error) {
         console.log(error)
     }
 }
+
+
+function paintQUest(bads, good, quest) {
+
+    let arrayresp = [...bads, good]; //para meter las 4 respuestas
+    // console.log(arrayresp, quest);
+    arrayresp = arrayresp.sort(() => Math.random() - 0.5) //para que la posición de la respuesta correcta vaya cambiando
+
+    document.getElementById('question').innerHTML = `${quest}`
+    document.getElementById('a_text').innerHTML = `${arrayresp[0]}`
+    document.getElementById('b_text').innerHTML = `${arrayresp[1]}`
+    document.getElementById('c_text').innerHTML = `${arrayresp[2]}`
+    document.getElementById('d_text').innerHTML = `${arrayresp[3]}`
+
+}
+
+function checkGoodAnswer(goodAnswer, score) {
+    let answers = document.getElementsByName('answer')
+    answers.forEach(element => {
+        if(element.checked && document.getElementById(`${element.id}_text`).textContent == goodAnswer){
+            score.push(1)
+        }
+    })
+}
+
+function deleteRadio() {
+    let answers = document.getElementsByName('answer')
+    answers.forEach(element => {
+        element.checked = false
+    })
+}
+
+
 
 quizGame();
 
