@@ -1,20 +1,39 @@
 
 
-let score = []
+let score = [];
 let currentQuestion = 0;
-const submitBtn = document.getElementById('submit')
+
+// Se declaran las variables para los contadores. "score" como un array vacío y "currentQuestion" como tipo numérico igualado a 0.
 
 
-       //++ 1 addevent listener para "siguiente" y va pasando las preguntas
-//función asíncrona para traer pregs y resp de la API - PTE TERMINAR!!!! dentro de esta función tiene que ir toda la lógica del quiz
+
+
+const submitBtn = document.getElementById('submit');
+
+// Se declara la variable del botón para enviar la respuesta elegida y pasar a la siguiente pregunta. Se usa el DOM para traerlo desde HTML.
+
+
+
+
+
+quizGame();
+
+// Lo primero, se ejecuta la función quizGame, declarada en la línea 23 como función asíncrona.
+
+
+
+
+
 async function quizGame() {
     
-
     try {
-
         let responseQuiz = await fetch('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
         let pregsQuiz = await responseQuiz.json()
-        // console.log(pregsQuiz.results)
+
+        // Trae de la API las preguntas. En concreto, trae un objeto al que hemos llamado "pregsQuiz".Uno de los elementos de "pregsQuiz" es un array llamado "results" que contiene 13 objetos (preguntas) con sus propiedades (enunciado, respuesta correcta, incorrecta... Copiar enlace en navegador para ver la estructura). Este enlace está generado desde la API, con una configuración previa desde la API en la que se determinan el nº de preguntas, la temática, dificultad...
+
+
+
 
         paintQUest(
             pregsQuiz.results[currentQuestion].incorrect_answers,
@@ -22,10 +41,24 @@ async function quizGame() {
             pregsQuiz.results[currentQuestion].question
             )
 
+        // Se ejecuta la función "paintQUest", declarada en la línea 89 (fuera de la función asíncrona), que "pinta" el enunciado de la pregunta, la respuesta correcta y las 3 respuestas incorrectas de cada una de las preguntas correspondientes al contador "currentQuestion".
+
+
+
+
+        
+
         submitBtn.addEventListener('click', () => {
+
+        // Se asocia el botón con una función de escucha para cuando se haga click ejecute lo siguiente:
+
+
             checkGoodAnswer(pregsQuiz.results[currentQuestion].correct_answer, score)
             
-            currentQuestion++
+
+
+
+            currentQuestion++;
 
             if (currentQuestion == pregsQuiz.results.length) {
                 let total = 0;
@@ -33,13 +66,7 @@ async function quizGame() {
                     total += hit
                 })
                 quiz.innerHTML = `
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                    <br><br><br><br><br><br><br>
                     <h2>You answered ${total}/${pregsQuiz.results.length} questions correctly</h2>
         
                     <button onclick="location.reload()">Reload</button>
@@ -96,7 +123,7 @@ function deleteRadio() {
 
 
 
-quizGame();
+
 
 
 
