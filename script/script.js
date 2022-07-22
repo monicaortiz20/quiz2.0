@@ -1,107 +1,137 @@
-const quizData = [
-    {
-        question: "¿Quién muere en el primer episodio de la primera temporada?",
-        a: "Joffry Baratheon",
-        b: "Eddard Stark",
-        c: "Tyrion Lannister",
-        d: "Nadie muere",
-        correct: "b",
-    },
-    {
-        question: "¿Quién es la madre de Jon Stark?",
-        a: "Sansa Stark",
-        b: "Catelyn Stark",
-        c: "Cersei Lannister",
-        d: "Ni Jon lo sabe",
-        correct: "d",
-    },
-    {
-        question: "¿Cuál de las siguientes NO es una familia de Juego de tronos?",
-        a: "Tyrell",
-        b: "Bolton",
-        c: "Borbon",
-        d: "Stark",
-        correct: "c",
-    },
-    {
-        question: "¿Cuándo recibió Daenerys sus huevos de dragón?",
-        a: "En Astapor, como regalo de bienvenida",
-        b: "Con Khal Drogo al saber que iba a ser padre",
-        c: "Fue un regalo de boda de Magister Ilyrio",
-        d: "Se los encontraron por el camino",
-        correct: "d",
-    },
-  
-  
-  ];
+
+
+let score = [];
+let currentQuestion = 0;
+
+// Se declaran las variables para los contadores. "score" como un array vacío y "currentQuestion" como tipo numérico igualado a 0.
 
 
 
-  const quiz= document.getElementById('quiz')
-  const answerEls = document.querySelectorAll('.answer')
-  const questionEl = document.getElementById('question')
-  const a_text = document.getElementById('a_text')
-  const b_text = document.getElementById('b_text')
-  const c_text = document.getElementById('c_text')
-  const d_text = document.getElementById('d_text')
-  const submitBtn = document.getElementById('submit')
-  
-  
-  let currentQuiz = 0
-  let score = 0
-  
-  loadQuiz()
-  
-  function loadQuiz() {
-  
-      //deselectAnswers()
-  
-    const currentQuizData = quizData[currentQuiz]
-  
-    questionEl.innerText = currentQuizData.question
-    a_text.innerText = currentQuizData.a
-    b_text.innerText = currentQuizData.b
-    c_text.innerText = currentQuizData.c
-    d_text.innerText = currentQuizData.d
-  }
-  /*
-  function deselectAnswers() {
-      answerEls.forEach(answerEl => answerEl.focus = false)
-  }
-  */
-  
-  function getSelected() {
-    let answer
-    answerEls.forEach(answerEl => {
-        if(answerEl.checked) {
-            answer = answerEl.id
+
+const submitBtn = document.getElementById('submit');
+
+// Se declara la variable del botón para enviar la respuesta elegida y pasar a la siguiente pregunta. Se usa el DOM para traerlo desde HTML.
+
+
+
+
+
+quizGame();
+
+// Lo primero, se ejecuta la función quizGame, declarada en la línea 23 como función asíncrona.
+
+
+
+
+
+async function quizGame() {
+    
+    try {
+        let responseQuiz = await fetch('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
+        let pregsQuiz = await responseQuiz.json()
+
+        // Trae de la API las preguntas. En concreto, trae un objeto al que hemos llamado "pregsQuiz".Uno de los elementos de "pregsQuiz" es un array llamado "results" que contiene 13 objetos (preguntas) con sus propiedades (enunciado, respuesta correcta, incorrecta... Copiar enlace en navegador para ver la estructura). Este enlace está generado desde la API, con una configuración previa desde la API en la que se determinan el nº de preguntas, la temática, dificultad...
+
+
+
+
+        paintQUest(
+            pregsQuiz.results[currentQuestion].incorrect_answers,
+            pregsQuiz.results[currentQuestion].correct_answer, 
+            pregsQuiz.results[currentQuestion].question
+            )
+
+        // Se ejecuta la función "paintQUest", declarada en la línea 89 (fuera de la función asíncrona), que "pinta" el enunciado de la pregunta, la respuesta correcta y las 3 respuestas incorrectas de cada una de las preguntas correspondientes al contador "currentQuestion".
+
+
+
+
+        
+
+        submitBtn.addEventListener('click', () => {
+
+        // Se asocia el botón con una función de escucha para cuando se haga click ejecute lo siguiente:
+
+
+            checkGoodAnswer(pregsQuiz.results[currentQuestion].correct_answer, score)
+            
+
+
+
+            currentQuestion++;
+
+            if (currentQuestion == pregsQuiz.results.length) {
+                let total = 0;
+                score.forEach(hit => {
+                    total += hit
+                })
+                quiz.innerHTML = `
+                    <br><br><br><br><br><br><br>
+                    <h2>You answered ${total}/${pregsQuiz.results.length} questions correctly</h2>
+        
+                    <button onclick="location.reload()">Reload</button>
+                    `
+            }else{
+                deleteRadio()
+                
+                paintQUest(
+                    pregsQuiz.results[currentQuestion].incorrect_answers,
+                    pregsQuiz.results[currentQuestion].correct_answer, 
+                    pregsQuiz.results[currentQuestion].question
+                    )
+    
+            }
+
+
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+function paintQUest(bads, good, quest) {
+
+    let arrayresp = [...bads, good]; //para meter las 4 respuestas
+    // console.log(arrayresp, quest);
+    arrayresp = arrayresp.sort(() => Math.random() - 0.5) //para que la posición de la respuesta correcta vaya cambiando
+
+    document.getElementById('question').innerHTML = `${quest}`
+    document.getElementById('a_text').innerHTML = `${arrayresp[0]}`
+    document.getElementById('b_text').innerHTML = `${arrayresp[1]}`
+    document.getElementById('c_text').innerHTML = `${arrayresp[2]}`
+    document.getElementById('d_text').innerHTML = `${arrayresp[3]}`
+
+}
+
+function checkGoodAnswer(goodAnswer, score) {
+    let answers = document.getElementsByName('answer')
+    answers.forEach(element => {
+        if(element.checked && document.getElementById(`${element.id}_text`).textContent == goodAnswer){
+            score.push(1)
         }
     })
-    return answer
-  }
-  
-  
-  
-  submitBtn.addEventListener('click', () => {
-      const answer = getSelected()
-      if(answer) {
-         if(answer === quizData[currentQuiz].correct) {
-             score++
-         }
-  
-         currentQuiz++
-  
-         if(currentQuiz < quizData.length) {
-             loadQuiz()
-         } else {
-             quiz.innerHTML = `
-             <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-  
-             <button onclick="location.reload()">Reload</button>
-             `
-         }
-      }
-  })
+}
+
+function deleteRadio() {
+    let answers = document.getElementsByName('answer')
+    answers.forEach(element => {
+        element.checked = false
+    })
+}
+
+
+
+
+
+
+
+
+
+////// e.target.value /////
+
+
 
 
 
