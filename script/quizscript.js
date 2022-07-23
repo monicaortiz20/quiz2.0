@@ -1,5 +1,4 @@
 
-
 let score = [];
 let currentQuestion = 0;
 
@@ -8,7 +7,7 @@ let currentQuestion = 0;
 
 
 
-const submitBtn = document.getElementById('submit');
+const submitBtn = document.getElementById('submit-quiz');
 
 // Se declara la variable del botón para enviar la respuesta elegida y pasar a la siguiente pregunta. Se usa el DOM para traerlo desde HTML.
 
@@ -67,9 +66,10 @@ async function quizGame() {
                 })
                 quiz.innerHTML = `
                     <br><br><br><br><br><br><br>
-                    <h2>You answered ${total}/${pregsQuiz.results.length} questions correctly</h2>
+                    <h2>Has respondido ${total}/${pregsQuiz.results.length} preguntas correctamente</h2><br><br><br><br><br>
         
-                    <button onclick="location.reload()">Reload</button>
+                    <button id="submit-quiz" onclick="location.reload()">Volver a jugar</button><br>
+                    <input id="submit-quiz" type="button" onclick="location.href='../pages/home.html';" value="Home" />
                     `
             }else{
                 deleteRadio()
@@ -128,8 +128,12 @@ function deleteRadio() {
 
 
 
-// Your web app's Firebase configuration
 
+
+
+
+// Your web app's Firebase configuration
+/*
 const firebaseConfig = {
     apiKey: "AIzaSyCzZ7cOiBFSKZ21yBwNg3mps1764mSJOpo",
     authDomain: "quiz2-f87e2.firebaseapp.com",
@@ -172,4 +176,4 @@ db.collection("users").get().then((querySnapshot) => {
         console.log(doc.data())
     });
 });
-
+*/
