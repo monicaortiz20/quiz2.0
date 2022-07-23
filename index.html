@@ -1,37 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <title>Init</title>
+    <title>Inicio</title>
 </head>
+
 <body>
-    <section>
-        <div class="container">
-            <div>
-                <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="logo" class="logo">
-            </div>
-            <div class="container-input">
-                <a id="login" href="" class="button">Iniciar sesión</a>
-                <div>
-                    <a id="registro" class="button" href="">¡Regístrate!</a>
-                    <form name="form" id="form" class="form-init">
-                        <div>
-                            <label class="label-init" for="name">Nombre</label><br>
-                            <input class="input-init" type="text" id="name" name="name" placeholder="Carlos Sobera">
-                        </div>
-                        <div>
-                            <label class="label-init" for="email">Correo electrónico</label><br>
-                            <input class="input-init" type="email" id="email" name="email" placeholder="charlesobera@hotmail.com">
-                        </div>
-                        <button class="button-registered" id="registered">Registrarme</button>
-                    </form>
-                </div>
-            </div>
+    <div id="index" class="index-box">
+
+        <div class="index-content">
+
+            <figure onclick="hideBoth()" id="figure-index">
+                <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="logo" id="logo" class="logo-index">
+            </figure><br/><br/>
+
+
+            <section class="box-log">
+
+                <button onclick="showLog()" id="dropdown-log" class="dropdown-button">Inicio sesión</button><br/>
+
+                <form id="form-log" class="dropdown-content">
+                    <label id="mail-log-lab" for="mail-log">Email:</label>
+                    <input id="mail-log" type="text" placeholder="Email de login..."><br/>
+
+                    <label id="pass-log-lab" for="pass-log">Contraseña:</label>
+                    <input id="pass-log" type="password" placeholder="Contraseña de login..."><br/>
+
+                    <button id="submit-log" class="submit-button">¡Inicia sesión!</button><br/>
+                </form>
+            </section>
+
+            <hr size="1px" color="white" width="80%"/>
+            <br/>
+
+            <section class="box-reg">
+
+                <button onclick="showReg()" id="dropdown-reg" class="dropdown-button">Registro</Button><br/>
+
+                <form id="form-reg" class="dropdown-content">
+                    <label id="name-reg-lab" for="name-reg">Nombre:</label>
+                    <input id="name-reg" type="text" placeholder="Nombre de registro..."><br/>
+
+                    <label id="mail-reg-lab" for="mail-reg">Email:</label>
+                    <input id="mail-reg" type="text" placeholder="Email de registro..."><br/>
+
+                    <label id="pass-reg-lab" for="pass-reg">Contraseña:</label>
+                    <input id="pass-reg" type="password" placeholder="Contraseña de registro..."><br/>
+
+                    <label id="pass-reg-lab-rep" for="pass-reg-rep">Repite contraseña:</label>
+                    <input id="pass-reg-rep" type="password" placeholder="Repite contraseña..."><br/>
+
+                    <button id="submit-reg" class="submit-button">¡Regístrate!</button><br/>
+                </form>
+            </section>
         </div>
-    </section>
+    </div>
+    <script src="./script/indexscript.js"></script>
 </body>
 
 </html>
