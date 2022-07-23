@@ -1,10 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Quintessential&family=Rubik:wght@700&display=swap');
 
-
 *{
   box-sizing: border-box;
 }
-
 
 body {
   background-color: white;
@@ -17,7 +15,6 @@ body {
   overflow: hidden;
   margin: 0;
 }
-
 
 /* QUIZ */
 
@@ -35,7 +32,6 @@ body {
   overflow-y: scroll;
 }
 
-
 .quiz-content{
   display: flex;
   flex-direction: column;
@@ -43,7 +39,6 @@ body {
   padding: 2rem;
   padding-top:3rem;
 }
-
 
 h2 {
   text-shadow: 4px 4px 2px #000000;
@@ -56,7 +51,6 @@ h2 {
   position: relative;
   bottom: 0px;
 }
-
 
 .label-quiz {
     background-color: #060622;
@@ -75,7 +69,6 @@ h2 {
     transition: 0.2s;
   }
 
-
   .label-quiz:hover {
     right:3px;
     bottom:3px;
@@ -83,13 +76,9 @@ h2 {
     box-shadow: 4px 4px 5px #000000;
   }
 
-
-
   .answer {
       display: none;
     }
-
-
 
 #submit-quiz {
     background-color: #060622;
@@ -108,23 +97,11 @@ h2 {
     transition: 0.2s;
   }
 
-
   #submit-quiz:hover {
     right:3px;
     bottom:3px;
     box-shadow: 4px 4px 5px #000000;
   }
-
-
-
-
-
-
-
-
-
-  
-
 
 
   /* INDEX */
@@ -195,7 +172,6 @@ h2 {
     align-items: center;
   }
 
-  
 
   #submit-log {
     background-color: #060622;
@@ -220,10 +196,6 @@ h2 {
     background-color: #d2760d;
     box-shadow: 4px 4px 5px #000000;
   }
-
-
-
-
 
   #dropdown-reg {
     background-color: #060622;
@@ -283,4 +255,74 @@ h2 {
     bottom:3px;
     background-color: #d2760d;
     box-shadow: 4px 4px 5px #000000;
+  }
+
+  /* HOME */
+
+.home{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+  .cards-container{
+    background-color: #fff;
+    background-image: linear-gradient(315deg, #5362a0 0%, #061036 100%);
+    font-family: 'Rubik', sans-serif;
+  }
+
+  .user-card{
+    background-color: #fff;
+    background-image: linear-gradient(315deg, #5362a0 0%, #061036 100%);
+    font-family: 'Rubik', sans-serif; 
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;    border-radius: 8px;
+    width: 450px;
+    height: 250px;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center; 
+  }
+  
+  
+  .button-registered{
+    background-color: #060622;
+    color: #fff;
+    border: solid;
+    border-radius: 100px;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: inherit;
+    padding: 1.3rem;
+    max-width: 100%;
+    position: relative;
+    transition: 0.2s;
+  }
+
+
+  .card-graf{
+    background-color: #fff;
+    background-image: linear-gradient(315deg, #5362a0 0%, #061036 100%);
+    font-family: 'Rubik', sans-serif; 
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;    border-radius: 8px;
+    width: 450px;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center; 
+  }
+
+
+
+  .img-graf{
+    height: 280px;
+    padding: 20px;;
   }
