@@ -41,10 +41,8 @@
 
                 <button onclick="showReg()" id="dropdown-reg" class="dropdown-button">Registro</Button><br/>
 
-                <form id="form-reg" class="dropdown-content">
-                    <label id="name-reg-lab" for="namereg">Nombre:</label>
-                    <input id="namereg" name="namereg" type="text" placeholder="Nombre de registro..."><br/>
-
+                <form id="form-reg" action="#" method="POST" class="dropdown-content">
+                    
                     <label id="mail-reg-lab" for="mailreg">Email:</label>
                     <input id="mailreg" name="mailreg" type="text" placeholder="Email de registro..."><br/>
 
@@ -62,8 +60,9 @@
             </div>
         </div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
     <script src="./script/script.js"></script>
 </body>
 

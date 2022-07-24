@@ -151,48 +151,63 @@ const firebaseConfig = {
     appId: "1:346823333135:web:0db11aaaca9f09df5e5a7a"
 };
 
-
-
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-
-
 
 //para llamar a la bbdd
 const db = firebase.firestore();
 
-const createUser = (user) => {
-    db.collection("users")
-      .add(user)
-      .then((docRef) => console.log("Document written with ID: ", docRef.id))
-      .catch((error) => console.error("Error adding document: ", error));
+
+
+
+
+
+// Auth Firebase con mail + pass
+
+const signUpUser = (email, password) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        let user = userCredential.user;
+        console.log(`se ha registrado ${user.email} ID:${user.uid}`)
+        alert(`se ha registrado ${user.email} ID:${user.uid}`)
+        // ...
+        // Guarda El usuario en Firestore
+        createUser({
+          id: user.uid,
+          email: user.email,
+          password: user.password,
+        });
+  
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log("Error en el sistema: "+errorMessage);
+      });
   };
   
+  //"alex@demo.com","123456"
   
+  document.getElementById("form-reg").addEventListener("submit",function(event){
+      event.preventDefault();
+      let email = event.target.elements.mailreg.value;
+      let pass = event.target.elements.passreg.value;
+      let pass2 = event.target.elements.passregrep.value;
   
-  // 2:
-  
-  document.querySelector('#form-reg').addEventListener('submit', (event) => {
-    event.preventDefault();
-      
-      let nameUser = event.target.namereg.value;
-      let emailUser = event.target.mailreg.value;
-      let password = event.target.passreg.value;
-
-      createUser({
-        nameUser,
-        emailUser,
-        password,
-      });
-    });
+      pass===pass2?signUpUser(email,pass):alert("error password");
+  })
 
 
 
 
 
 
+/*
+
+    // Subir a firestore puntuaciones y fechas
 
     const createScore = (score) => {
         db.collection("users")
@@ -220,7 +235,7 @@ const createUser = (user) => {
         });
 
 
-
+*/
 
 
 
