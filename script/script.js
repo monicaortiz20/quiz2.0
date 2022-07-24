@@ -178,7 +178,6 @@ const signUpUser = (email, password) => {
         createUser({
           id: user.uid,
           email: user.email,
-          password: user.password,
         });
   
       })
@@ -201,9 +200,24 @@ const signUpUser = (email, password) => {
   })
 
 
+// Creación de colección
+
+const createUser = (user) => {
+    db.collection("users")
+      .add(user)
+      .then((docRef) => console.log("Document written with ID: ", docRef.id))
+      .catch((error) => console.error("Error adding document: ", error));
+  };
+  
 
 
 
+
+
+
+
+
+  
 
 /*
 
