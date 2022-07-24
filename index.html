@@ -25,12 +25,12 @@
 
                 <form id="form-log" class="dropdown-content">
                     <label id="mail-log-lab" for="mail-log">Email:</label>
-                    <input id="mail-log" type="text" placeholder="Email de login..."><br/>
+                    <input id="mail-log" name="mail-log" type="text" placeholder="Email de login..."><br/>
 
                     <label id="pass-log-lab" for="pass-log">Contraseña:</label>
-                    <input id="pass-log" type="password" placeholder="Contraseña de login..."><br/>
+                    <input id="pass-log" name="pass-log" type="password" placeholder="Contraseña de login..."><br/>
 
-                    <button id="submit-log" class="submit-button">¡Inicia sesión!</button><br/>
+                    <button id="submit-log" class="submit-button" onclick="location.href='../pages/home.html';">¡Inicia sesión!</button><br/>
                 </form>
             </section>
 
@@ -42,24 +42,27 @@
                 <button onclick="showReg()" id="dropdown-reg" class="dropdown-button">Registro</Button><br/>
 
                 <form id="form-reg" class="dropdown-content">
-                    <label id="name-reg-lab" for="name-reg">Nombre:</label>
-                    <input id="name-reg" type="text" placeholder="Nombre de registro..."><br/>
+                    <label id="name-reg-lab" for="namereg">Nombre:</label>
+                    <input id="namereg" name="namereg" type="text" placeholder="Nombre de registro..."><br/>
 
-                    <label id="mail-reg-lab" for="mail-reg">Email:</label>
-                    <input id="mail-reg" type="text" placeholder="Email de registro..."><br/>
+                    <label id="mail-reg-lab" for="mailreg">Email:</label>
+                    <input id="mailreg" name="mailreg" type="text" placeholder="Email de registro..."><br/>
 
-                    <label id="pass-reg-lab" for="pass-reg">Contraseña:</label>
-                    <input id="pass-reg" type="password" placeholder="Contraseña de registro..."><br/>
+                    <label id="pass-reg-lab" for="passreg">Contraseña:</label>
+                    <input id="passreg" name="passreg" type="password" placeholder="Contraseña de registro..."><br/>
 
-                    <label id="pass-reg-lab-rep" for="pass-reg-rep">Repite contraseña:</label>
-                    <input id="pass-reg-rep" type="password" placeholder="Repite contraseña..."><br/>
+                    <label id="pass-reg-lab-rep" for="passregrep">Repite contraseña:</label>
+                    <input id="passregrep" name="passregrep" type="password" placeholder="Repite contraseña..."><br/>
 
-                    <button id="submit-reg" class="submit-button">¡Regístrate!</button><br/>
+                    <input type="submit" id="submit-reg" class="submit-button" value="¡Regístrate!"><br/>
                 </form>
             </section>
+            <div><br>
+                <button id="submit-reg" onclick="location.href='../pages/home.html';">¡Pruébalo!</button>
+            </div>
         </div>
     </div>
-    <script src="./script/indexscript.js"></script>
+    <script src="./script/index.js"></script>
 </body>
 
 </html>

@@ -17,7 +17,7 @@
                 <h1>Your profile</h1>
             </div>
             <div>
-                <button class="button-registered"><a href="./quiz.html">¡Empezamos!</a> </button>
+                <button class="button-registered" onclick="location.href='../pages/quiz.html';">¡Empezamos!</button>
             </div>
         </section>
         <section class="card-graf">
@@ -28,12 +28,15 @@
                 <img src="../assets/img/graf.png" alt="gráfica" class="img-graf">
             </div>
         </section>
+        <div id="unlogin">
+            <button class="button-registered" onclick="location.href='../index.html';">Unlogin</button>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../script/homescript.js"></script>
+    <script src="../script/home.js"></script>
 </body>
 
 </html>

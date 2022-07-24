@@ -1,15 +1,20 @@
 
+
 let score = [];
 let currentQuestion = 0;
 
+
+
 // Se declaran las variables para los contadores. "score" como un array vacío y "currentQuestion" como tipo numérico igualado a 0.
-
-
 
 
 const submitBtn = document.getElementById('submit-quiz');
 
 // Se declara la variable del botón para enviar la respuesta elegida y pasar a la siguiente pregunta. Se usa el DOM para traerlo desde HTML.
+
+
+
+let localSdata = JSON.parse(localStorage.getItem("player"));
 
 
 
@@ -24,7 +29,7 @@ quizGame();
 
 
 async function quizGame() {
-    
+   
     try {
         let responseQuiz = await fetch('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
         let pregsQuiz = await responseQuiz.json()
@@ -51,26 +56,26 @@ async function quizGame() {
 
         // Se asocia el botón con una función de escucha para cuando se haga click ejecute lo siguiente:
 
-
             checkGoodAnswer(pregsQuiz.results[currentQuestion].correct_answer, score)
             
-
-
-
             currentQuestion++;
 
             if (currentQuestion == pregsQuiz.results.length) {
-                let total = 0;
-                score.forEach(hit => {
-                    total += hit
+                let totalScore = 0;
+                score.forEach(sum1 => {
+                    totalScore += sum1
+                    //Cuando llega a la pantalla final, suma los elementos al array "score"
                 })
+
                 quiz.innerHTML = `
                     <br><br><br><br><br><br><br>
-                    <h2>Has respondido ${total}/${pregsQuiz.results.length} preguntas correctamente</h2><br><br><br><br><br>
+                    <h2>You answered ${totalScore}/${pregsQuiz.results.length} questions correctly</h2>
         
-                    <button id="submit-quiz" onclick="location.reload()">Volver a jugar</button><br>
-                    <input id="submit-quiz" type="button" onclick="location.href='../pages/home.html';" value="Home" />
+                    <button onclick="location.reload()">Reload</button>
                     `
+                
+                //window.location.href = "results.html";
+                //localStorage.setItem("player",JSON.stringify(localSdata));
             }else{
                 deleteRadio()
                 
@@ -84,10 +89,11 @@ async function quizGame() {
 
 
         })
-
+        
     } catch (error) {
         console.log(error)
     }
+    
 }
 
 
@@ -109,7 +115,7 @@ function checkGoodAnswer(goodAnswer, score) {
     let answers = document.getElementsByName('answer')
     answers.forEach(element => {
         if(element.checked && document.getElementById(`${element.id}_text`).textContent == goodAnswer){
-            score.push(1)
+            score.push(1);
         }
     })
 }
@@ -133,7 +139,7 @@ function deleteRadio() {
 
 
 // Your web app's Firebase configuration
-/*
+
 const firebaseConfig = {
     apiKey: "AIzaSyCzZ7cOiBFSKZ21yBwNg3mps1764mSJOpo",
     authDomain: "quiz2-f87e2.firebaseapp.com",
@@ -176,4 +182,3 @@ db.collection("users").get().then((querySnapshot) => {
         console.log(doc.data())
     });
 });
-*/
