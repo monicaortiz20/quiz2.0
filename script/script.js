@@ -1,5 +1,7 @@
 
 
+
+
 let score = [];
 let currentQuestion = 0;
 
@@ -29,7 +31,7 @@ quizGame();
 
 
 async function quizGame() {
-   
+
     try {
         let responseQuiz = await fetch('https://opentdb.com/api.php?amount=13&category=17&difficulty=medium&type=multiple')
         let pregsQuiz = await responseQuiz.json()
@@ -41,23 +43,23 @@ async function quizGame() {
 
         paintQUest(
             pregsQuiz.results[currentQuestion].incorrect_answers,
-            pregsQuiz.results[currentQuestion].correct_answer, 
+            pregsQuiz.results[currentQuestion].correct_answer,
             pregsQuiz.results[currentQuestion].question
-            )
+        )
 
         // Se ejecuta la función "paintQUest", declarada en la línea 89 (fuera de la función asíncrona), que "pinta" el enunciado de la pregunta, la respuesta correcta y las 3 respuestas incorrectas de cada una de las preguntas correspondientes al contador "currentQuestion".
 
 
 
 
-        
+
 
         submitBtn.addEventListener('click', () => {
 
-        // Se asocia el botón con una función de escucha para cuando se haga click ejecute lo siguiente:
+            // Se asocia el botón con una función de escucha para cuando se haga click ejecute lo siguiente:
 
             checkGoodAnswer(pregsQuiz.results[currentQuestion].correct_answer, score)
-            
+
             currentQuestion++;
 
             if (currentQuestion == pregsQuiz.results.length) {
@@ -73,27 +75,27 @@ async function quizGame() {
         
                     <button onclick="location.reload()">Reload</button>
                     `
-                
+
                 //window.location.href = "results.html";
                 //localStorage.setItem("player",JSON.stringify(localSdata));
-            }else{
+            } else {
                 deleteRadio()
-                
+
                 paintQUest(
                     pregsQuiz.results[currentQuestion].incorrect_answers,
-                    pregsQuiz.results[currentQuestion].correct_answer, 
+                    pregsQuiz.results[currentQuestion].correct_answer,
                     pregsQuiz.results[currentQuestion].question
-                    )
-    
-            }
+                )
 
+            }
+            return totalScore;
 
         })
-        
+
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
 
@@ -114,7 +116,7 @@ function paintQUest(bads, good, quest) {
 function checkGoodAnswer(goodAnswer, score) {
     let answers = document.getElementsByName('answer')
     answers.forEach(element => {
-        if(element.checked && document.getElementById(`${element.id}_text`).textContent == goodAnswer){
+        if (element.checked && document.getElementById(`${element.id}_text`).textContent == goodAnswer) {
             score.push(1);
         }
     })
@@ -151,34 +153,157 @@ const firebaseConfig = {
 
 
 
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+
 
 
 //para llamar a la bbdd
 const db = firebase.firestore();
 
+const createUser = (user) => {
+    db.collection("users")
+      .add(user)
+      .then((docRef) => console.log("Document written with ID: ", docRef.id))
+      .catch((error) => console.error("Error adding document: ", error));
+  };
+  
+  
+  
+  // 2:
+  
+  document.querySelector('#form-reg').addEventListener('submit', (event) => {
+    event.preventDefault();
+      
+      let nameUser = event.target.namereg.value;
+      let emailUser = event.target.mailreg.value;
+      let password = event.target.passreg.value;
 
-//para crear colecciones
-db.collection("users").add({
-    name: "Nombre",
-    email: "email@gmail.com",
-    password:"00",
-    score: 0
-})
-    .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-        console.error("Error adding document: ", error);
+      createUser({
+        nameUser,
+        emailUser,
+        password,
+      });
     });
 
 
-//para obtener toda la info de nuestra BBDD
 
-db.collection("users").get().then((querySnapshot) => {
+
+
+
+
+    const createScore = (score) => {
+        db.collection("users")
+          .add(score)
+          .then((docRef) => console.log("Document written with ID: ", docRef.id))
+          .catch((error) => console.error("Error adding document: ", error));
+      };
+      
+      
+      
+      // 2:
+      
+      document.getElementById('#form-reg').addEventListener('submit', (event) => {
+        event.preventDefault();
+          
+          let nameUser = event.target.namereg.value;
+          let emailUser = event.target.mailreg.value;
+          let password = event.target.passreg.value;
+    
+          createUser({
+            nameUser,
+            emailUser,
+            password,
+          });
+        });
+
+
+
+
+
+
+
+//para obtener toda la info de nuestra BBDD
+/*
+db.collection("user").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         // console.log(`${doc.id} => ${doc.data()}`);
         console.log(doc.data())
     });
 });
+*/
+
+
+
+
+
+
+/*
+//para crear colecciones
+
+document.getElementById('submit-reg').addEventListener('click', () => {
+
+    let nameUser = document.getElementById('namereg').innerHTML
+    let emailUser = document.getElementById('mailreg').innerHTML
+    let password = document.getElementById('passreg').innerHTML
+
+    db.collection("user").add({
+        name: `${nameUser}`,
+        email: `${emailUser}`,
+        password: `${password}`,
+        //score: `${score}`,
+        //date: "",
+    })
+        .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+});
+*/
+
+
+
+
+
+
+
+
+
+// Funciones index
+
+function showLog() {
+    log = document.getElementById('form-log');
+    log.style.display = 'flex';
+    hideReg();
+}
+
+function hideLog() {
+    log = document.getElementById('form-log');
+    log.style.display = 'none';
+}
+
+function showReg() {
+    reg = document.getElementById('form-reg');
+    reg.style.display = 'flex';
+    hideLog();
+}
+
+function hideReg() {
+    reg = document.getElementById('form-reg');
+    reg.style.display = 'none';
+}
+
+function hideBoth() {
+    reg = document.getElementById('form-reg');
+    reg.style.display = 'none';
+    log = document.getElementById('form-log');
+    log.style.display = 'none';
+}
+
+
+hideLog();
+hideReg();
