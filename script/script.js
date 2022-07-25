@@ -197,6 +197,10 @@ const createUser = (user) => {
       });
 }
 
+
+
+// Unlogin mail + pass
+
 const signOut = () => {
     let user = firebase.auth().currentUser;
 
@@ -207,6 +211,8 @@ const signOut = () => {
       });
 }
 
+
+// DOM log & unlog
 
 document.getElementById("form-log").addEventListener("submit",function(event){
     event.preventDefault();
