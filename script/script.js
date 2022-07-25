@@ -1,5 +1,6 @@
 
-
+hideLog();
+hideReg();
 
 
 let score = [];
@@ -88,7 +89,6 @@ async function quizGame() {
                 )
 
             }
-            return totalScore;
 
         })
 
@@ -140,6 +140,8 @@ function deleteRadio() {
 
 
 
+
+
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
@@ -151,56 +153,16 @@ const firebaseConfig = {
     appId: "1:346823333135:web:0db11aaaca9f09df5e5a7a"
 };
 
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 
 //para llamar a la bbdd
 const db = firebase.firestore();
 
 
-
-
-
-
-// Auth Firebase con mail + pass
-
-const signUpUser = (email, password) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Signed in
-        let user = userCredential.user;
-        console.log(`se ha registrado ${user.email} ID:${user.uid}`)
-        alert(`se ha registrado ${user.email} ID:${user.uid}`)
-        // ...
-        // Guarda El usuario en Firestore
-        createUser({
-          id: user.uid,
-          email: user.email,
-        });
-  
-      })
-      .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log("Error en el sistema: "+errorMessage);
-      });
-  };
-  
-  //"alex@demo.com","123456"
-  
-  document.getElementById("form-reg").addEventListener("submit",function(event){
-      event.preventDefault();
-      let email = event.target.elements.mailreg.value;
-      let pass = event.target.elements.passreg.value;
-      let pass2 = event.target.elements.passregrep.value;
-  
-      pass===pass2?signUpUser(email,pass):alert("error password");
-  })
-
-
-// Creación de colección
+// Creación de la colección "users"
 
 const createUser = (user) => {
     db.collection("users")
@@ -216,8 +178,116 @@ const createUser = (user) => {
 
 
 
+// Login con mail + pass
+
+  const signInUser = (email,password) =>{
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        // Signed in
+        let user = userCredential.user;
+        console.log(`se ha logado ${user.email} ID:${user.uid}`)
+        alert(`se ha logado ${user.email} ID:${user.uid}`)
+        console.log(user);
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(errorCode)
+        console.log(errorMessage)
+      });
+}
+
+const signOut = () => {
+    let user = firebase.auth().currentUser;
+
+    firebase.auth().signOut().then(() => {
+        console.log("Sale del sistema: "+user.email)
+      }).catch((error) => {
+        console.log("hubo un error: "+error);
+      });
+}
+
+
+document.getElementById("form-log").addEventListener("submit",function(event){
+    event.preventDefault();
+    let email = event.target.elements.mail-log.value;
+    let pass = event.target.elements.pass-log.value;
+    signInUser(email,pass)
+})
+document.getElementById("unlog").addEventListener("click", signOut);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Auth Firebase con mail + pass (Sigh up -> registrarse)
+
+const signUpUser = (email, password) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Inicio sesión (Sigh in -> iniciar sesión):
+        let user = userCredential.user;
+        console.log(`se ha registrado ${user.email} ID:${user.uid}`)
+        alert(`se ha registrado ${user.email} ID:${user.uid}`)
+        // ...
+
+        // Creación del usuario en Firestore a la misma vez que se hace el registro (no sería necesario para el registro en sí)
+        createUser({
+          id: user.uid,
+          email: user.email,
+        });
+  
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log("Error en el sistema: "+errorMessage);
+      });
+  };
+  
+  //Credenciales creadas para demostración:
+  //monica@mail.com (123456)
+  //nacho@mail.com (1234567)
+  
+
+
+
+  // Uso del DOM para recoger los valores introducidos en los inputs de "mailreg", "passreg" y "passregrep" y guardarlos en sus respectivas variables al pulsar "submit"
+  document.getElementById("form-reg").addEventListener("submit",function(event){
+      //event.preventDefault();
+      let email = event.target.elements.mailreg.value;
+      let pass = event.target.elements.passreg.value;
+      let pass2 = event.target.elements.passregrep.value;
+  
+      // Declaración que obliga a coincidir los campos de "pass" y "pass2"
+      pass===pass2?signUpUser(email,pass):alert("error password");
+  })
+
 
   
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 
@@ -334,5 +404,4 @@ function hideBoth() {
 }
 
 
-hideLog();
-hideReg();
+
