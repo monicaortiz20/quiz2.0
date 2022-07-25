@@ -14,23 +14,23 @@
 
         <div class="index-content">
 
-            <figure onclick="hideBoth()" id="figure-index">
+            <figure id="figure-index">
                 <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="logo" id="logo" class="logo-index">
             </figure><br/><br/>
 
 
             <section class="box-log">
 
-                <button onclick="showLog()" id="dropdown-log" class="dropdown-button">Inicia sesión</button><br/>
+                <button id="dropdown-log" class="dropdown-button">Inicia sesión</button><br/>
 
                 <form id="form-log" class="dropdown-content" action="#" method="POST">
                     <label id="mail-log-lab" for="mail-log">Email:</label>
-                    <input id="mail-log" name="mail-log" type="text" placeholder="Email de login..."><br/>
+                    <input id="maillog" name="maillog" type="text" placeholder="Email de login..."><br/>
 
                     <label id="pass-log-lab" for="pass-log">Contraseña:</label>
-                    <input id="pass-log" name="pass-log" type="password" placeholder="Contraseña de login..."><br/><br/>
+                    <input id="passlog" name="passlog" type="password" placeholder="Contraseña de login..."><br/><br/>
 
-                    <button id="submit-log" class="submit-button" onclick="location.href='../pages/home.html';">Enviar</button><br/>
+                    <button id="submit-log" class="submit-button">Enviar</button><br/>
 
                 </form>
                 
@@ -41,7 +41,7 @@
 
             <section class="box-reg">
 
-                <button onclick="showReg()" id="dropdown-reg" class="dropdown-button">Regístrate</Button><br/>
+                <button id="dropdown-reg" class="dropdown-button">Regístrate</Button><br/>
 
                 <form id="form-reg" action="#" method="POST" class="dropdown-content">
                     
@@ -57,7 +57,10 @@
                     <input type="submit" id="submit-reg" class="submit-button" value="Enviar"><br/>
                 </form>
             </section>
-            
+            <button id="loggedUsers" class="button-registered">Check users</button><br/>
+            <div id="unlog">
+                <button class="button-registered">Unlogin</button>
+            </div>
         </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
