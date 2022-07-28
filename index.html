@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <title>Inicio</title>
 </head>
 
@@ -16,7 +18,8 @@
 
             <figure id="figure-index">
                 <img src="./assets/img/Logo_WWTBAM_Spain.png" alt="logo" id="logo" class="logo-index">
-            </figure><br/><br/>
+            </figure><br/>
+            <section id="wellcomeContent"></section>
 
 
             <section class="box-log">
@@ -36,7 +39,7 @@
                 
             </section>
 
-            <hr size="1px" color="white" width="80%"/>
+            <hr id="bar" size="1px" color="white" width="80%"/>
             <br/>
 
             <section class="box-reg">
@@ -57,16 +60,23 @@
                     <input type="submit" id="submit-reg" class="submit-button" value="Enviar"><br/>
                 </form>
             </section>
+            
+            <button id="startQuiz" class="button-registered">Comenzar</button><br/>
+
+            <button id="unlog" class="button-registered">Desconectar</button><br/>
+        
             <button id="loggedUsers" class="button-registered">Check users</button><br/>
-            <div id="unlog">
-                <button class="button-registered">Unlogin</button>
-            </div>
+
+            <h3 id="chartScore">Puntuaciones</h3>
+            <div id="chart" class="ct-chart ct-perfect-fourth"></div>
+
+
         </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-    <script src="./script/script.js"></script>
+    <script src="./script/index.js"></script>
 </body>
 
 </html>
